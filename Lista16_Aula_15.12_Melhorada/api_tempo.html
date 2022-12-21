@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Previsão do tempo</title>
+
+    <script src="https://code.jquery.com/jquery-3.6.1.min.js"
+        integrity="sha256-o88AwQnZB+VDvE9tvIXrMQaPlFFSUTR+nldQm1LuPXQ=" crossorigin="anonymous">
+    </script>
+
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
+
+    <script>
+        const chave = '55752bf4acc6c7e2555d14928e90e25e';
+
+        function montaURL(cidade) {
+            return `http://api.openweathermap.org/data/2.5/weather?q=${cidade}&units=metric&lang=pt&APPID=${chave}`;
+        }
+
+        function insereConteudo(metodo, resposta) {
+            console.log('Método:', metodo, resposta);
+
+            $("#areaConteudo").empty();
+            $("#areaConteudo").append('<hr>');
+            $("#areaConteudo").append(`<h5>Método: ${metodo}</h5>`);
+            $("#areaConteudo").append('<p><strong>Cidade</strong>: ' + resposta.name +
+                                      '<br><strong>Latitude</strong>: ' + resposta.coord.lat +
+                                      ' <strong>Longitude</strong>: ' + resposta.coord.lon +
+                                      '<br><strong>Descrição</strong>: ' + resposta.weather[0].description +
+                                      '<br><strong>Temperatura</strong>: ' + resposta.main.temp.toLocaleString('pt-BR') + ' °C' +
+                                      '<br><strong>Sensação térmica</strong>: ' + resposta.main.feels_like.toLocaleString('pt-BR') + ' °C' +
+                                      '</p>');
+
+            // console.log($("#areaConteudo").html());
+        }
+
+        function getTempoXHR() {
+            let ajax = new XMLHttpRequest();
+            const cidade = document.getElementById('cidade').value;
+
+            ajax.onload = (event) => {
+                if (ajax.status == 200) {
+                    const resposta = JSON.parse(ajax.responseText);
+                    insereConteudo('XMLHttpRequest', resposta);
+                } else if (ajax.status >= 40) {
+                    console.log('Erro:', ajax.status, ajax.statusText);
+                }
+            }
+
+            ajax.open('GET', montaURL(cidade));
+            ajax.send();
+        }
+
+        function getTempoJQuery() {
+            // $.ajax({
+            //     url: montaURL(),
+            //     success: resposta => insereConteudo('jQuery', resposta),
+            //     error: () => console.log('Recurso não disponível - 404 not found')
+            // });
+            const cidade = document.getElementById('cidade').value;
+
+            $.get({
+                url: montaURL(cidade),
+                success: resposta => insereConteudo('jQuery', resposta),
+                error: () => console.log('Recurso não disponível - 404 not found')
+            });
+        }
+
+        function getTempoFetch() {
+            const cidade = document.getElementById('cidade').value;
+
+            fetch(montaURL(cidade))
+                .then(response => response.json())
+                .then(dados => insereConteudo('API Fetch', dados))
+                .catch((error) => console.log('Recurso não disponível - 404 not found'));
+        }
+        
+        async function getTempoAA() {
+            const cidade = document.getElementById('cidade').value;
+            const resposta = await fetch(montaURL(cidade));
+            const dados = await resposta.json();
+            insereConteudo('Async/Await', dados);
+        }
+
+        async function getTempoAxios() {
+            const cidade = document.getElementById('cidade').value;
+            const resposta = await axios(montaURL(cidade));
+            insereConteudo('Axios', resposta.data);
+        }
+    </script>
+</head>
+
+<body>
+    <nav class="navbar navbar-light bg-light mb-4">
+        <div class="container">
+            <h3>Previsão do Tempo</h3>
+        </div>
+    </nav>
+
+    <div class="container">
+        <div class="row">
+            <div class="col">
+                <label>Digite qual a cidade:</label>
+                <input id="cidade" class="mb-4" type="text" placeholder="Digite sua cidade:" value="Guaraciaba">
+                <p>
+                    <button type="button" class="btn btn-secondary" onclick="getTempoXHR()">
+                        Consultar tempo (XMLHttpRequest)
+                    </button>
+                    <button type="button" class="btn btn-success" onclick="getTempoJQuery()">
+                        Consultar tempo (Ajax + jQuery)
+                    </button>
+                    <button type="button" class="btn btn-primary" onclick="getTempoFetch()">
+                        Consultar tempo (Fetch API)
+                    </button>
+                    <button type="button" class="btn btn-danger" onclick="getTempoAA()">
+                        Consultar tempo (async/await)
+                    </button>
+                    <button type="button" class="btn btn-warning" onclick="getTempoAxios()">
+                        Consultar tempo (axios)
+                    </button>
+                </p>
+            </div>
+        </div>
+        <div id="areaConteudo"></div>
+    </div>
+</body>
+
+</html>

@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <title>Atividade 4</title>
+
+</head>
+<body style="text-align: center;">
+    <br>
+    
+    <input id="iSegundos" type="number" placeholder="Quantos segundos no cronômetro?" style="margin: auto; width: 225px;">
+
+    <hr>
+    
+    <button onclick="iniciarCronometro()">Iniciar cronômetro</button>
+    <button onclick="pausarCronometro()">Pausar cronômetro</button>
+
+    <br>
+
+    <span id="iSpan" style="text-align: center; margin: auto"></span>
+
+    <script>
+        let valor = 0, cronometro;
+
+        function iniciarCronometro() {
+            const img = document.getElementsByTagName('img');
+
+            if (img[0]) {
+                img[0].remove();
+            }
+
+            valor = document.getElementById('iSegundos').value;
+            cronometro = setInterval(function() {
+                valor--;
+                document.getElementById('iSpan').innerHTML = (valor + '<br>');
+
+                if (valor == 0) {
+                    clearInterval(cronometro);
+
+                    let arquivo = 'https://www.telesintese.com.br/wp-content/uploads/2015/11/like-ok-aval-autorizacao-joia-freepik.jpg';
+                    let imagem = document.createElement('img');
+                    
+
+                    imagem.src = arquivo;
+                    imagem.style = 'width: 100px; heigth: 100px'
+                    imagem.onended = function() { this.remove(); };
+
+                    document.body.appendChild(imagem);
+                }
+
+            }, 1000);
+        }
+
+        function pausarCronometro() {
+            clearInterval(cronometro);
+        }
+    </script>
+</body>
+</html>

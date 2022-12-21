@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+
+    <script>
+        function mostrarResultadoRange() {
+            document.getElementById('idUrgenciaResultado').innerHTML = document.getElementById('idUrgencia').value;
+        }
+    </script>
+</head>
+<body onload="mostrarResultadoRange()">
+    <form method="GET" id="formulario">
+        <fieldset id="busca">
+            <legend>Buscar Usuários</legend>
+            <input type="search" name="tBusca" id="idBusca">
+            <button>Buscar</button>
+        </fieldset>
+        <fieldset id="usuario">
+            <legend>Identificação do Usuário</legend>
+            <p>
+                <label for="idNome">Nome: </label>
+                <input type="text" name="tNome" id="idNome" size="20" maxlength="30" placeholder="Digite seu nome">
+            </p>
+            <p>
+                <label for="idSenha">Senha: </label>
+                <input type="password" name="tSenha" id="idSenha" size="8" maxlength="8" placeholder="8 dígitos">
+            </p>
+            <p>
+                <label for="idEmail">E-mail: </label>
+                <input type="email" name="idEmail" size="20" maxlength="30" placeholder="Digite seu e-mail">
+            </p>
+            <fieldset id="sexo" style="max-width: fit-content;">
+                <legend>
+                    Sexo
+                </legend>
+                <input type="radio" name="tSexo" id="idMasc" value="M">
+                <label for="idMasc">Masculino</label>
+                <input type="radio" name="tSexo" id="idFem" checked value="F">
+                <label for="idFem">Feminino</label>
+            </fieldset>
+            <p>
+                <label for="idNasc">Data de Nascimento: </label>
+                <input type="date" name="tNascimento" id="idNasc">
+            </p>
+        </fieldset>
+        <fieldset id="endereco">
+            <legend>Endereço de Usuário</legend>
+            <p>
+                <label for="idLogradouro">Logradouro: </label>
+                <input type="text" name="tLogradouro" id="idLogradouro" size="20" maxlength="30" placeholder="Rua, Avenida...">
+            </p>
+            <p>
+                <label for="idNumero">Número: </label>
+                <input type="number" name="tNumero" id="idNumero" min="0" max="99999">
+            </p>
+            <p>
+                <label for="idEstado">Estado</label>
+                <select name="tEstado" id="idEstado">
+                    <optgroup label="Região Sudeste">
+                        <option value="RJ">Rio de Janeiro</option>
+                        <option value="SP">São Paulo</option>
+                        <option value="MG">Minas Gerais</option>
+                    </optgroup>
+                    <optgroup label="Região Sul">
+                        <option value="RJ">Rio de Janeiro</option>
+                        <option value="SC" selected>Santa Catarina</option>
+                        <option value="RS">Rio Grande do Sul</option>
+                    </optgroup>
+                </select>
+            </p>
+            <p>
+                <label for="idCidade">Cidade: </label>
+                <input type="text" name="tCidade" id="idCidade" size="20" maxlength="30" placeholder="Digite a cidade" list="cidades">
+                <datalist id="cidades">
+                    <option value="Joaçaba"></option>
+                    <option value="São Miguel do Oeste"></option>
+                    <option value="Videira"></option>
+                    <option value="Xanxerê"></option>
+                </datalist>
+            </p>
+        </fieldset>
+        <fieldset id="linguagens">
+            <legend>Linguagens de Programação Preferidas</legend>
+            <p>
+                <label style="display:block; float:left;" for="idLinguagens">Linguagens: </label>
+                <select name="tLinguagens" id="idLinguagens" multiple size="11">
+                    <optgroup label="Back-end">
+                        <option value="java">Java</option>
+                        <option value="php">PHP</option>
+                        <option value="c#">C#</option>
+                        <option value="jsBack">JavaScript</option>
+                        <option value="python">Python</option>
+                    </optgroup>
+                    <optgroup label="Front-end">
+                        <option value="html">HTML</option>
+                        <option value="css">CSS</option>
+                        <option value="jsFront">JavaScript</option>
+                        <option value="typescript">TypeScript</option>
+                    </optgroup>
+                </select>
+            </p>
+        </fieldset>
+        <fieldset id="mensagem">
+            <legend>Mensagem do Usuário</legend>
+            <p>
+                <label for="idUrgencia">Grau de Urgência: </label>
+                <input type="range" name="tUrgencia" id="idUrgencia" min="1" max="10" value="1" onchange="mostrarResultadoRange()">
+                <span id="idUrgenciaResultado"></span>
+            </p>
+            <p>
+                <label style="display:block; float:left;" for="idMensagem">Mensagem:&nbsp;</label>
+                <textarea id="idMensagem" rows="5" cols="30" placeholder="Digite aqui a sua mensagem"></textarea>
+            </p>
+        </fieldset>
+        <fieldset id="pedido">
+            <legend>Quero um Google Glass</legend>
+            <p>
+                <input type="checkbox" name="tPedido" id="idPedido" checked>
+                <label for="idPedido">Gostaria de adquirir um Google Glass</label>
+            </p>
+            <p>
+                <label for="idCor">Cor: </label>
+                <input type="color" name="tCor" id="idCor" value="#0000FF">
+            </p>
+        </fieldset>
+        <br/>
+        <input type="submit" value="Enviar">
+    </form>
+</body>
+</html>

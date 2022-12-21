@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Tabelas</title>
+
+    <style>
+        table, td {
+            border: 2px solid black;
+            border-collapse: collapse;
+            padding: 5px;
+        }
+
+        thead, th {
+            color: white;
+            background-color: #3f87a6;
+            padding: 5px;
+        }
+
+        tbody tr:hover {
+            background-color: #aaa;
+        }
+    </style>
+</head>
+
+<body>
+    <table style="background-color: #f0f0f0; width: 95%; margin: 0 auto">
+        <caption style="font-size: xx-large">Lista de produtos</caption>
+        <thead>
+            <td style="text-align: center; font-weight: bolder; font-size: larger" colspan="3">
+                Dados consolidados
+            </td>
+            <tr>
+                <th>Código</th>
+                <th width="50%">Produtos</th>
+                <th>Preço</th>
+            </tr>
+        </thead>
+        <tr>
+            <td style="text-align: center;">001</td>
+            <td>Notebook</td>
+            <td style="text-align: right; padding-right: 5px">R$ 2.500,00</td>
+        </tr>
+        <tr>
+            <td style="text-align: center;">002</td>
+            <td>Tablet</td>
+            <td style="text-align: right; padding-right: 5px">R$ 1.000,00</td>
+        </tr>
+        <tr>
+            <td style="text-align: center;">003</td>
+            <td style="text-align: center;">
+                <img src="assets/imagens/ferrari.png" width="75%">
+            </td>
+            <td style="text-align: right; padding-right: 5px">R$ 1.000,00</td>
+        </tr>
+        <tfoot>
+            <tr style="background-color: #ccc; font-weight: bold;">
+                <td colspan="2" style="text-align: right">Total</td>
+                <td style="text-align: right; padding-right: 5px">R$ 4.500,00</td>
+            </tr>
+            <td colspan="3" style="text-align: center">Dados atualizados em set.2022</td>
+        </tfoot>
+    </table>
+</body>
+
+</html>

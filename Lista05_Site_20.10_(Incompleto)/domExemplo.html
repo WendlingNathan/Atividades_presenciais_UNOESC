@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DOM</title>
+
+    <style>
+        .estilo1 {
+            border: solid 1px black;
+            width: 100px;
+            height: 100px;
+            margin: auto;
+        }
+
+        .estilo2 {
+            border: solid 2px black;
+            width: 200px;
+            height: 200px;
+            margin: auto;
+        }
+    </style>
+
+</head>
+
+<body style="text-align: center;">
+    <button onclick="modificaCor('red');">Vermelho</button>
+    <button onclick="modificaCor('green');">Verde</button>
+    <button onclick="modificaCor('blue');">Azul</button>
+    | <button id="controle" onclick="alternarCaixa();">Esconder caixa</button>
+    | <button onclick="trocarEstilo();">Trocar estilo</button>
+
+    <hr>
+
+    <div id="caixa" class="estilo1"></div>
+
+    <script>
+        window.estilo = false;
+        this.caixaInvisivel = false;
+
+        function modificaCor(corDeFundo) {
+            document.getElementById('caixa').style.background = corDeFundo;
+        }
+
+        function alternarCaixa() {
+            this.caixaInvisivel = !this.caixaInvisivel;
+            document.getElementById('caixa').hidden = this.caixaInvisivel;
+
+            if (this.caixaInvisivel) {
+                document.getElementById('controle').innerHTML = 'Mostrar caixa';
+            } else {
+                document.getElementById('controle').innerHTML = 'Esconder caixa';
+            }
+        }
+
+        function trocarEstilo() {
+            document.getElementById('caixa').className = window.estilo ? 'estilo1' : 'estilo2';
+            window.estilo = !window.estilo;
+        }
+    </script>
+
+</body>
+
+</html>

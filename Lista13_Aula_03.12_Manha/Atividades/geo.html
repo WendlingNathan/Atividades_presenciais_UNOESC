@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BOM - Navigator - Geolocalização</title>
+
+    <script>
+        let local;
+        const requisitaPosicao = () => {
+            const opcoes = {
+                enableHighAccuracy: true,
+                timeout: 5000,
+                maximumAge: 0
+            };
+            
+            return new Promise(function (resolve, reject) {
+                navigator.geolocation.getCurrentPosition(
+                    pos => {
+                        resolve(local = `Latitude : ${pos.coords.latitude} x Longitude: ${pos.coords.longitude}`)
+                    },
+                    err => { reject(err) },
+                    opcoes
+                );
+            });
+        }
+        async function infosNavegador() {
+            await requisitaPosicao();
+            console.log(local);
+
+            infos = `appName: ${navigator.appName} <br>`;
+            infos += `appVersion : ${navigator.appVersion}<br>`;
+            infos += `appCodeName : ${navigator.appCodeName}<br>`;
+            infos += `product : ${navigator.product}<br>`;
+            infos += `userAgent : ${navigator.userAgent}<br>`;
+            infos += `platform : ${navigator.platform}<br>`;
+            infos += `language : ${navigator.language}<br>`;
+            infos += `online? ${navigator.onLine ? 'Sim' : 'Não'}<br>`;
+            infos += `Java habilitado? ${navigator.javaEnabled() ? 'Sim' : 'Não'}<br>`;
+            infos += `Conexão: ${navigator.connection}<br>`;
+            infos += `Memória: ${navigator.deviceMemory} GB <br>`;
+            infos += `Geolocalização: ${local}<br>`;
+            document.getElementById('infos').innerHTML = infos;
+        }
+    </script>
+</head>
+
+
+<body style="text-align: center;">
+    <button onclick="infosNavegador()">Informações Navegador</button>
+    <div id="infos"></div>
+</body>
+
+
+</html>

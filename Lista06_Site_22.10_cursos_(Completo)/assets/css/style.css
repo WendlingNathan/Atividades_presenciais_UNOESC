@@ -1,0 +1,133 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;900&display=swap');
+
+* {
+    margin: 0px;
+    padding: 0;
+    border: 0;
+    box-sizing: border-box;
+    /* font-family: Montserrat, sans-serif; */
+}
+
+.navbar {
+    box-shadow: 2px 2px 25px rgba(0, 0, 0, 0.3);
+}
+
+.navbar-nav {
+    text-transform: uppercase;
+}
+
+.navbar-nav .nav-link:hover {
+    color: purple;
+}
+
+.navbar-nav .nav-link.active {
+    color: #FF0000;
+}
+
+h1 {
+    color: #00A3D9;
+    margin: 20px 0;
+    font-weight: 900;
+    }
+
+.card-title { height: 50px; }
+.card-text { height: 70px; }
+.card { margin: 5px; }
+#cursos .col-12 { padding: 5px; }
+
+.card-img-top {
+    opacity: 0.75;
+    transition: all 0.5s;
+    filter: blur(5px) grayscale(100%);
+}
+
+.card-img-top:hover {
+    opacity: 1;
+    transition: all 0.5s;
+    transform: scale(1.2);
+    position: relative;
+    z-index: 10;
+    filter: none;
+}
+
+.jumbotron {
+    background: url(../imagens/depoimento.jpg) fixed center;
+    font-size: 1.6em;
+    color: #fff;
+    line-height: 40px;
+    border-radius: 0px;
+    margin: 40px 0;
+    background-size: cover;
+    padding: 3rem 2rem 1rem;
+    margin-bottom: 1rem;
+}
+
+.jumbotron img {
+    border: 5px solid #fff;
+    width: 200px;
+    margin: 2rem 0px 0px;
+}
+
+footer {
+    background: #F0F0E1;
+    padding: 15px 0;
+}
+
+footer i {
+    font-size: 2em;
+    margin: 10px 0;
+}
+
+hr { border: 1px solid #000; }
+
+.icones { text-align: right;}
+
+.icones i { font-size: 1.2em; }
+
+.icones a {
+    text-decoration: none;
+    color: #bbb;
+    margin-left: 10px;
+    transition: all 0.5s;
+}
+
+.icones a:hover { color: blue; }
+
+@media (min-width: 1400px) {
+    .carousel-caption {
+        background: rgba(255, 255, 255, 0.4);
+    }
+}
+
+@media (min-width: 1200px) and (max-width: 1399.9px) {
+    .card-text {
+        height: 100px;
+    }
+}
+
+@media (min-width: 992px) and (max-width: 1199.9px) {
+    .carousel-caption {
+        margin: 0 10%;
+        background: rgba(0, 0, 255, 0.4);
+    }
+    .card-text {
+        height: 120px;
+    }
+}
+
+@media (min-width: 800px) and (max-width: 991.0px) {
+    .carousel-caption {
+        margin: 0 10%;
+        background: rgba(0, 255, 0, 0.4);
+    }
+}
+
+@media (max-width: 799.9px) {
+    .carousel-caption {
+        margin: 0 5%;
+        background: rgba(0, 0, 0, 0.4);
+    }
+    .card-text {
+        height: 100px;
+    }
+}

@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Modificando Elemento</title>
+
+    <style>
+        table {
+            width: 50%;
+            margin: 0 auto;
+            border: 1px solid black;
+            border-collapse: collapse;
+        }
+
+        th {
+            color: white;
+            background-color: black;
+        }
+
+        td {
+            padding: 5px;
+        }
+
+        td:nth-child(even) { text-align: center; }
+        td:last-child { text-align: right; }
+        td[colspan="2"] { text-align: right; }
+
+        table tr:nth-child(even) { background-color: #eee; }
+        table tr:nth-child(odd) { background-color: #fff; }
+        table tr:last-child { font-weight: bold; }
+    </style>
+</head>
+
+<body>
+    <div>
+        <table>
+            <caption>Carrinho de compras</caption>
+            <tr>
+                <th>Produtos</th>
+                <th>Quantidade</th>
+                <th>Valor</th>
+            </tr>
+            <tr>
+                <td>Produto 1</td>
+                <td id="qp1" name="qtd">10</td>
+                <td>R$ <span id="vlr1" name="vlr">30,00</span></td>
+            </tr>
+            <tr>
+                <td>Produto 2</td>
+                <td id="qp2" name="qtd">5</td>
+                <td>R$ <span id="vlr2" name="vlr">20,00</span></td>
+            </tr>
+            <tr>
+                <td>Produto 3</td>
+                <td id="qp3" name="qtd">5</td>
+                <td>R$ <span id="vlr3" name="vlr">20,00</span></td>
+            </tr>
+            <tr>
+                <td colspan="2">Total da compra</td>
+                <td>R$ <span id="total">0,00</span></td>
+            </tr>
+        </table>
+    </div>
+
+    <br>
+
+    <div style="text-align: center;">
+        <button onclick="alert('Total: R$' + document.querySelector('#total').innerHTML);">Ler total atual</button>
+
+        <button onclick="setarValorTotal()">Setar valor total</button>
+
+        <button onclick="calcularValorTotal()">Calcular total</button>
+    </div>
+
+    <script>
+        function converteValor(dado) {
+            let valor = parseFloat(dado.replace(',', '.'));
+
+            if (!isNaN(parseFloat(valor)) && isFinite(valor)) {
+                return valor.toLocaleString('pt-BR', { minimumFractionDigits: 2,            maximumFractionDigits: 2});
+            } else {
+                return '0.00';
+            }
+        } 
+
+        function setarValorTotal() {
+            let entrada = prompt('Entre com o valor total:', '0.00');
+            document.querySelector('#total').innerHTML = converteValor(entrada);
+        }
+
+        function calcularValorTotal() {
+            let qtd1 = document.getElementById('qp1');
+            let qtd2 = document.getElementById('qp2');
+            let qtd3 = document.getElementById('qp3');
+
+            let vlr1 = document.getElementById('vlr1');
+            let vlr2 = document.getElementById('vlr2');
+            let vlr3 = document.getElementById('vlr3');
+
+            let Qtd1 = parseFloat(qtd1);
+            let Qtd2 = parseFloat(qtd2);
+            let Qtd3 = parseFloat(qtd3);
+
+            let Vlr1 = parseFloat(vlr1);
+            let Vlr2 = parseFloat(vlr2);
+            let Vlr3 = parseFloat(vlr3);
+
+            console.log(Vlr1);
+
+            let total = (Vlr1 * Qtd1) + (Vlr2 * Qtd2) + (Vlr3 * Qtd3);
+
+            total = total.toLocaleString('pt-BR', {minimumFractionDigits: 2, maximumFractionDigits: 2});
+            document.querySelector('#total').innerHTML = total;
+        }
+    </script>
+</body>
+
+</html>

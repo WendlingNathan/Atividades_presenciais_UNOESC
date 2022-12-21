@@ -1,0 +1,58 @@
+@charset "UTF-8";
+
+h1 {
+    font-family: cursive;
+    text-align: center;
+    font-size: 28pt;
+}
+
+table#tabela {
+    border: 2px solid black;
+    font-family: fantasy;
+    border-spacing: 0px;
+    margin-left: auto;
+    margin-right: auto;
+    color: blue;
+    font-size: 14pt;
+    text-align: center;
+}
+
+table#tabela thead {
+    background-color: #3f87a6;
+    color: #fff;
+    font-size: 20pt;
+    letter-spacing: 1px;
+}
+
+table#tabela caption {
+    border: 3px solid black;
+    background: #3f87a6;
+    font-size: 26pt;
+    color: white;
+    padding: 5px 5px 5px 50px;
+}
+
+table#tabela caption span {
+    display: block;
+    float: right;
+    font-size: 12pt;
+    margin-top: 30;
+}
+
+table#tabela td {
+    border: 1px solid black;
+    font-size: 18pt;
+    vertical-align: middle;
+    padding: 5px;
+}
+
+table#td.ce {
+    background-color: #606060;
+    color: white;
+    width: 200px;
+}
+
+table#tabela td.cd {
+    background-color: #e4f0f5;
+    width: 400px;
+}

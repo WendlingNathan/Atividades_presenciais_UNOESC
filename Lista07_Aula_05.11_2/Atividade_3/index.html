@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Atividade 3</title>
+</head>
+<body>
+    <input type="text" id="iTexto" placeholder="Digite algo">
+    <button onclick="imprimeNoSpan()">Aperte</button>
+
+    <hr>
+
+    <span id="span" style="margin: auto;"></span>
+
+    <hr>
+
+    <button onclick="mudarCor('blue')">Cor azul</button>
+    <button onclick="mudarCor('yellow')">Cor amarelo</button>
+    <button onclick="mudarCor('white')">Voltar para o branco</button>
+
+    <div id="iCaixa" style="margin: 20px; width: 100px; height: 100px; border: 1px solid black;"></div>
+
+    <script>
+        function imprimeNoSpan() {
+            let texto = document.getElementById('iTexto').value;
+            document.getElementById('span').innerHTML = texto;
+        }
+
+        function mudarCor(corEscolha) {
+            document.getElementById('iCaixa').style.background = corEscolha;
+        }
+    </script>
+</body>
+</html>

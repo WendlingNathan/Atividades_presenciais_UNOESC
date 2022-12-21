@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Imagens</title>
+</head>
+
+<body>
+    <figure style="text-align:center">
+        <img src="https://seeklogo.com/images/M/mdn-logo-6DB9B0093F-seeklogo.com.png" alt="Uma imagem impressionante">
+        <figcaption>Legenda para a imagem</figcaption>
+    </figure>
+
+    <picture style="display: block; text-align:center;">
+        <source
+            srcset="https://storage.googleapis.com/web-dev-uploads/image/KT4TDYaWOHYfN59zz6Rc0X4k4MH3/ZJ6ytgzvsh5CvWhdthsA.jpg"
+            media="(min-width: 75em)" width="1200" height="500">
+
+        <source
+            srcset="https://storage.googleapis.com/web-dev-uploads/image/KT4TDYaWOHYfN59zz6Rc0X4k4MH3/qQ0QuF4k0kO8B72b8Vo8.jpg"
+            media="(min-width: 50em)" width="800" height="400">
+
+        <img src="https://storage.googleapis.com/web-dev-uploads/image/KT4TDYaWOHYfN59zz6Rc0X4k4MH3/fO7EJEn4hGVeN4UbBO3g.jpg"
+            alt="Imagem de um cachorro parecendo feliz com uma bola em sua boca." width="400" height="400"
+            loading="lazy" decoding="async">
+    </picture>
+</body>
+
+</html>

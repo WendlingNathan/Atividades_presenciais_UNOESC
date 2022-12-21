@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
+
+    <title>O Senhor dos anéis</title>
+
+</head>
+<body>
+    
+    <div class="container mt-5" id="resumo">
+        <button onclick="sa.criarResumo(); console.log(sa); sa.listarHobbits(); sa.listarMagos()">
+            Aperte-me para 
+            <br>
+            um breve resumo
+            <br>
+            de O Senhor dos Anéis
+        </button>
+    </div>
+
+    <script>
+        const sa = {
+            nome: 'O Senhor dos Anéis',
+            escritor: 'J. R. R. Tolkien',
+            diretor: 'Peter Jackson',
+            hobbits: ['Merry', 'Pippin', 'Frodo', 'Sam', 'Bilbo'],
+            magos: ['Gandalf', 'Radagast', 'Saruman'],
+            listarHobbits() {
+                this.hobbits.forEach(hobbit => {
+                    console.log('O filme ' + this.nome + ' tem um Hobbit chamado ' + hobbit);
+                });
+            },
+            listarMagos() {
+                for (let mago of this.magos) {
+                    console.log('O filme ' + this.nome + ' tem um Mago chamado ' + mago);
+                }
+            },
+            criarResumo() {
+                let arrayHobbits = this.hobbits.join(', ');
+                let arrayMagos = this.magos.join(', ');
+
+                const resumo = '<h1><b>Resumo<b></h1> <hr> <h3 align="justify">A obra ' + this.nome + ' foi escrita por ' + this.escritor + ' e dirigida por ' + this.diretor + '. Trata-se de uma aventura épica com a presença de seres mágicos como os Hobbits ' + arrayHobbits + ' e os magos ' + arrayMagos + ', entre outros...</h3>';
+
+                console.log(resumo);
+
+                document.querySelector('#resumo').innerHTML = resumo;
+            }
+        };
+    </script>
+
+</body>
+</html>

@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
+
+    <title>Atividade 2</title>
+
+    <script>
+        function requisitarCidades(url) {
+            let estado = document.querySelector('#iEstado');
+
+            let ajax = new XMLHttpRequest();
+            console.log('Estado redyState: ' + ajax.readyState);
+
+            ajax.onreadystatechange = () => {
+                console.log('Estado da readyState' + ajax.readyState);
+
+                if (ajax.readyState == 4) 
+                    if (ajax.status == 20) {
+                        console.log('Requisição finalizada com sucesso!');
+                        console.log('O status da resposta é: ' + ajax.status);
+                        document.querySelector('#iCidade').remove();
+                    } else if (ajax.status == 404) {
+                        console.log('Recurso não encontrado!');
+                    }
+            }
+
+            ajax.open('GET', url);
+            ajax.send();
+        }
+    </script>
+
+</head>
+<body>
+
+    <div class="container">
+        <h2 class="alert alert-info" style="margin-top: 0.5rem">Formulário</h2>
+
+        <div class="form-group mb-3">
+            <label for="iNome">Escreva seu nome: </label>
+            <input type="text" class="form-control" id="iNome" placeholder="Ex: Fulano da Silva">
+        </div>
+
+        <div class="form-group mb-3">
+            <label for="iEndereco">Escreva seu endereço: </label>
+            <input type="text" class="form-control" id="iEndereco" placeholder="Ex: Rua Fulano, Bairro Sicrano, N°0">
+        </div>
+
+        <div class="form-group mb-3">
+            <label for="iEstado">Qual é o seu estado? </label>
+            <select name="estado" id="iEstado" onchange="console.log(this.value + ' - ' + this.options[this.selectedIndex].text);">
+                <option selected disabled>-- Selecione uma estado --</option>
+                <option value="1">PR</option>
+                <option value="2">SC</option>
+                <option value="3" onchange="">RS</option>
+            </select>
+        </div>
+
+        <button type="submit" class="btn btn-primary" onclick="requisitarCidades('http://localhost:8080/devolve-json/:estado')">Submeter</button>
+    </div>
+
+</body>
+</html>

@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="pt-BR" xmlns:th="https://www.thymeleaf.org">
+<head>
+	<meta charset="UTF-8">
+	<title>Olá mundo!</title>
+</head>
+<body>
+	<h2>Olá Spring Boot!!!</h2>
+	
+	<p th:text="${mensagem}"></p>
+	
+	<p>
+		Data:
+		<span th:text="${data_formatada}">01-JAN-2023</span> |
+		<span th:text="${data}">01-JAN-2023</span> |
+		<span th:text="${#dates.format(data, 'dd/MMMM/yyyy')}">01-JAN-2023</span>
+	</p>
+	
+	<p>
+		Valor:
+		<span th:text="${valor}">R$ 0,00</span>
+		<span th:text="${#numbers.formatCurrency(valor)}">R$ 0,00</span>
+	</p>
+	
+	<table border="2" cellpadding="10" style="border-collapse: collapse;">
+		<thead>
+			<tr>
+				<th>Nome</th>
+				<th>Quantidade</th>
+				<th>Valor</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr th:each="produto : ${produtos}">
+				<td th:text="${produto.nome}">Nome</td>
+				<td th:text="${produto.quantidade}">Quantidade</td>
+				<td th:text="${produto.valor}">Valor</td>
+			</tr>
+		</tbody>
+	</table>
+</body>
+</html>

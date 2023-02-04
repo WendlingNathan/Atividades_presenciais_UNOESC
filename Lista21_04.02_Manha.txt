@@ -1,2 +1,0 @@
-Aluno: SMO - 406143 - Nathan Ritter Wendling
-Link do repositório => https://github.com/WendlingNathan/Exemplo_jsp.git

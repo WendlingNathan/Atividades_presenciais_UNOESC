@@ -1,2 +1,5 @@
 Aluno: SMO - 406143 - Nathan Ritter Wendling
 Link do repositório => https://github.com/WendlingNathan/Exemplo_jsp.git
+------------------------------------------------------------------------
+Token usado no STS => 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
+Obs: válido por 30 dias a partir do dia 04/02/2023

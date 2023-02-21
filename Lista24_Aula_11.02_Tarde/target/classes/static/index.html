@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+	<meta charset="UTF-8">
+	<title>Spring Boot : Livros</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	
+	<link rel="stylesheet" type="text/css" href="webjars/bootstrap/5.1.3/css/bootstrap.min.css" />
+	<link rel="stylesheet" type="text/css" href="webjars/EasyAutocomplete/1.3.3/dist/easy-autocomplete.themes.css" />
+	
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.4/moment-with-locales.min.js"></script>
+</head>
+<body>
+	<div class="container">
+		<script type="text/javascript" src="webjars/jquery/3.6.3/jquery.min.js"></script>
+		<script type="text/javascript" src="webjars/bootstrap/5.1.3/js/bootstrap.min.js"></script>
+		<script type="text/javascript" src="webjars/EasyAutocomplete/1.3.3/dist/jquery.easy-autocomplete.js"></script>  
+
+		<script type="text/javascript">
+			moment.locale('pt-br');
+			
+			$(document).ready(function () {
+				let opcoes = {
+					url: function (filtro) {
+						// Versão 1: Retorna todos os dados do servidor
+						//return '/api/alunos';		
+						
+						// Versão 2: Monta o filtro e retorna os dados já filtrados do
+						// servidor; não necessita de ajaxSettings nem de preparePostData
+						//return `/api/alunos/find?filtro=${filtro}`;
+						
+						// Versão 3: Retorna dados já filtrados pelo back-end,
+						// funciona em conjunto com ajaxSettings e preparePostData
+						return '/api/alunos/find';						
+					},
+					getValue: function (elemento) {
+						return elemento.nome;
+					},
+					ajaxSettings: {
+						dataType: 'json',	// Formato de retorno dos dados
+						method: 'GET',
+						data: {	}			// COnfigura dados a serem enviados ao servidor
+					},
+					template: {
+					    type: "custom",
+					    method: function(value, item) {
+					    	console.log(item);
+					     	let data = new moment(item.nascimento).format('L');
+					    
+					     	return "Aluno: " + value + " | " + item.salario.toLocaleString('pt-BR', { 
+																	                              currency: 'BRL', 
+																	                              style: 'currency'
+																	                          }) + 
+								" | " + data;
+					    }
+					  },
+					preparePostData: function (data) {	// Dados a serem enviados via Ajax
+						data.filtro = $('#filtro').val();
+						return data;
+					},
+					theme: "dark",
+					list: {
+						showAnimation: {
+					    	type: "slide"
+					    },
+					    hideAnimation: {
+					     	type: "slide"
+					    },
+						match: {
+					     	enabled: true
+					    },
+						maxNumberOfElements: 15
+					},
+				};
+		
+				$('#filtro').easyAutocomplete(opcoes);
+			});
+		</script>
+		
+		<h1 class="text-center mt-2">
+  			<img alt="Spring" class="block" id="springlogo" src="spring-logo.svg" width="300">
+  			Spring Boot : Alunos
+ 		</h1>
+ 		
+ 		<form class="mt-1">
+			Buscar:
+  			<input type="text" id="filtro" autofocus="autofocus" class="form-control" />
+ 		</form>
+	</div>
+</body>
+</html>

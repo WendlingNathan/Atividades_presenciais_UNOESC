@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="pt-BR" xmlns:th="https://www.thymeleaf.org">
+<head>
+	<meta charset="UTF-8">
+	<title>Spring Boot : Funcionários</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+	<link rel="stylesheet" type="text/css" href="/webjars/bootstrap/5.1.3/css/bootstrap.min.css" />
+	<link rel="stylesheet" type="text/css" href="/webjars/open-iconic/font/css/open-iconic-bootstrap.min.css"/>
+	
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css" integrity="sha512-xh6O/CkQoPOWDdYTDqeRdPCVd1SpvCA9XXcUnZS2FmJNp1coAFzvtCN9BmamE+4aHK8yyUHUSCcJHgXloTyT2A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    
+	<style>
+		.layout-footer {
+			font-size: 0.65em;
+			position: fixed;
+			left: 0; right: 0; bottom: 0; margin: 0;
+			height: 25px;
+			border-top: 1px solid #eeeeee;
+		}
+		
+		.busca input {
+			border: 2px solid #d6d4d4;
+		}
+		
+		.busca input:focus {
+			box-shadow: none;
+			border: 1px solid grey;
+		}
+		
+		.tamanho-select {
+			padding: 6px 12px;
+			border-radius: 0.25rem;
+		}
+	</style>
+</head>
+<body>
+	<header>
+		<nav class="navbar navbar-dark bg-dark">
+			<div class="container-fluid">
+				<a class="navbar-brand float-start" href="#">DEV-TI</a>
+			</div>
+		</nav>
+	</header>
+	
+	<section>
+		<div class="container mt-3" style="box-sizing: border-box;">
+			<form th:action="@{/funcionarios/paginas}" id="formBusca">
+				<div class="d-flex p-3 bg-secondary justify-content-between">
+					<div class="col-5">
+						<div class="input-group busca">
+							<i class="input-group-text fa fa-search pt-2"></i> 
+							<input id="palavraChave" type="search" name="nome" th:value="${nome}" class="form-control" placeholder="Entre com o nome">
+							<button type="submit" class="btn btn-primary">Buscar</button>
+						</div>
+					</div>
+
+					<div class="col-5">
+						<div class="input-group justify-content-center">
+							<label class="input-group-text" for="tamPagina">Registros por página:</label>
+							
+							<select form="formBusca" name="tamPagina" th:value="${tamanhoPagina}" class="tamanho-select" id="tamPagina">
+								<option th:each="s : ${ {2, 4, 6, 8, 12} }" 
+										th:value="${s}" 
+										th:text="${s}" 
+										th:selected="${s == tamanhoPagina}">
+									2
+								</option>
+							</select>
+						</div>
+					</div>
+
+					<div class="col-2 text-end">
+						<button id="btnLimpar" class="btn btn-danger">Limpar</button>
+					</div>
+				</div>
+			</form>
+
+			<div class="table-responsive">
+				<table class="table table-striped table-hover table-sm">
+					<thead>
+						<tr>
+							<th>
+								<a th:href="@{'/funcionarios/paginas?pagina=0&ordenacao=id&direcao=' + ${direcaoReversa}} + '&nome=' + ${nome} + '&tamPagina=' + ${tamanhoPagina}">
+									Id
+								</a>
+							</th>
+							<th>
+								<a th:href="@{'/funcionarios/paginas?pagina=0&ordenacao=nome&direcao=' + ${direcaoReversa}} + '&nome=' + ${nome} + '&tamPagina=' + ${tamanhoPagina}">
+									Nome
+								</a>
+							</th>
+							<th>
+								<a th:href="@{'/funcionarios/paginas?pagina=0&ordenacao=numDep&direcao=' + ${direcaoReversa}} + '&nome=' + ${nome} + '&tamPagina=' + ${tamanhoPagina}">
+									N° Depen.
+								</a>	
+							</th>
+							<th>
+								<a th:href="@{'/funcionarios/paginas?pagina=0&ordenacao=nascimento&direcao=' + ${direcaoReversa}} + '&nome=' + ${nome} + '&tamPagina=' + ${tamanhoPagina}">
+									Nascimento
+								</a>
+							</th>
+							<th>
+								<a th:href="@{'/funcionarios/paginas?pagina=0&ordenacao=salario&direcao=' + ${direcaoReversa}} + '&nome=' + ${nome} + '&tamPagina=' + ${tamanhoPagina}">
+									Salario
+								</a>
+							</th>
+							<th>Ação</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr th:each="funcionario : ${pagina.content}">
+							<td th:text="${funcionario.id}">1</td>
+							<td th:text="${funcionario.nome}">Fulano</td>
+							<td th:text="${funcionario.numDep}">2</td>
+							<td th:text="${funcionario.nascimento}">23/02/2000</td>
+							<td th:text="${funcionario.salario}">3000</td>
+							<td>
+								<a class="btn btn-info btn-sm" th:href="@{/formFuncionarios/{id}(id=${funcionario.id})}" role="button"> 
+									<span class="oi oi-brush" title="Editar" aria-hidden="true"></span>							
+								</a>
+								<button type="button" class="btn btn-danger btn-sm">
+									<span class="oi oi-circle-x" title="Excluir" aria-hidden="true"></span>
+								</button>
+							</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+
+			<p>
+				Total de registros: [[${pagina.totalElements}]]  
+			</p>
+			
+			<nav aria-label="Page navigation example" th:if="${pagina.totalPages > 1}">
+				<ul class="pagination justify-content-center">
+					<li th:class="${pagina.number == 0} ? 'page-item disabled' : 'page-item'">
+						<a class="page-link" th:href="@{/funcionarios/paginas(pagina=${pagina.getNumber() - 1}, ordenacao=${campoOrdenacao}, direcao=${direcaoOrdenacao}, nome=${nome}, tamPagina=${tamanhoPagina})}">Anterior</a>
+					</li>
+					
+					<th:block th:each="numPagina: ${#numbers.sequence(1, pagina.totalPages)}">
+						<li class="page-item" th:classappend="${numPagina == pagina.number + 1} ? 'active' : ''">
+						 	<a class="page-link" 
+								th:href="@{/funcionarios/paginas(tamPagina=${pagina.size}, pagina=${numPagina - 1}, ordenacao=${campoOrdenacao}, direcao=${direcaoOrdenacao}, nome=${nome}, tamPagina=${tamanhoPagina})}" 
+								th:text=${numPagina}>
+							</a> 
+						</li>
+					</th:block>
+					
+					<li th:class="${pagina.number == pagina.totalPages-1} ? 'page-item disabled' : 'page-item'">
+						<a class="page-link" th:href="@{/funcionarios/paginas(pagina=${pagina.getNumber() + 1}, ordenacao=${campoOrdenacao}, direcao=${direcaoOrdenacao}, nome=${nome}, tamPagina=${tamanhoPagina})}">Próximo</a>
+					</li>
+				</ul>
+				<div class="text-center" th:text="|Página ${pagina.number + 1} de ${pagina.totalPages}|"></div>
+			</nav>
+		</div>
+	</section>
+
+	<footer class="layout-footer">
+		<div class="container">
+			<span class="footer-copy">&copy; 2023 DEV-TI. Todos os direitos reservados.</span>
+		</div>
+	</footer>
+	
+	<script type="text/javascript" src="/webjars/jquery/3.6.3/jquery.min.js"></script>
+	<script type="text/javascript" src="/webjars/bootstrap/5.1.3/js/bootstrap.min.js"></script>
+
+	<script>
+		$(document).ready(function() {
+			$("#btnLimpar").on("click", function(e) {
+				e.preventDefault();
+				$("#palavraChave").text("");
+				window.location = "[[@{/funcionarios/paginas}]]";
+			});
+
+			$("#tamPagina").on("change", function(e) {
+				$("#formBusca").submit();
+			});
+		});
+	</script>
+</body>
+</html>
